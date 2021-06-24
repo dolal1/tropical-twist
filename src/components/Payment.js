@@ -17,10 +17,10 @@ function Payment() {
   const elements = useElements();
 
   const [succeeded, setSucceeded] = useState(false);
-  const [processing, setProcessing] = useState("");
+  const [processing, setProcessing] = useState(false);
   const [error, setError] = useState(null);
   const [disabled, setDisabled] = useState(true);
-  const [clientSecret, setClientSecret] = useState(true);
+  const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
     //Generates unique stripe secret which allows customers be charged
@@ -35,6 +35,8 @@ function Payment() {
 
     getClientSecret();
   }, [basket]);
+
+  console.log(" The secret >>>", clientSecret);
 
   const handleSubmit = async (event) => {
     //fancy Stripes
@@ -54,7 +56,7 @@ function Payment() {
         setError(null);
         setProcessing(false);
 
-        history.replaceState("/orders");
+        history.replace("/orders");
       });
 
     payload();
